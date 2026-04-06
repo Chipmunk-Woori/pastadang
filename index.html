@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>파스타당</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background-color: #2B52E0;
+      overflow-x: hidden;
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 64px;
+      background-color: transparent;
+      transition: background-color 0.3s, backdrop-filter 0.3s, box-shadow 0.3s;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #fff;
+      font-size: 18px;
+      font-weight: 700;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .logo-icon {
+      width: 22px;
+      height: 22px;
+      object-fit: contain;
+      transition: filter 0.3s;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 400;
+      opacity: 0.9;
+      transition: opacity 0.2s;
+    }
+
+    nav a:hover {
+      opacity: 1;
+    }
+
+    .btn-reserve {
+      background-color: #F5C518;
+      color: #1a1a1a;
+      border: none;
+      border-radius: 999px;
+      padding: 10px 24px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background-color 0.2s;
+    }
+
+    .btn-reserve:hover {
+      background-color: #e6b800;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      min-height: 560px;
+      background-color: #2B52E0;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+
+    /* Diagonal light stripe */
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -10%;
+      right: 5%;
+      width: 55%;
+      height: 130%;
+      background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.12) 40%,
+        rgba(255, 255, 255, 0.18) 50%,
+        rgba(255, 255, 255, 0.08) 60%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      transform: skewX(-10deg);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding-left: 80px;
+      padding-top: 0;
+      margin-top: -160px;
+    }
+
+    .hero-title {
+      color: #fff;
+      font-size: clamp(26px, 3vw, 42px);
+      font-weight: 500;
+      line-height: 1.3;
+      letter-spacing: -0.5px;
+    }
+
+    /* ── PASTA IMAGES ── */
+    .pasta-container {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 65%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    /* Wrapper: holds bg circle + pasta plate, centered via flex */
+    .pasta-item {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+.pasta-plate {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+    }
+
+    .pasta-plate img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Meatball — upper right */
+    .pasta-item--meatball {
+      width: clamp(260px, 34vw, 460px);
+      height: clamp(260px, 34vw, 460px);
+      top: 4%;
+      right: 4%;
+    }
+
+    /* Cream — lower left */
+    .pasta-item--cream {
+      width: clamp(240px, 32vw, 430px);
+      height: clamp(240px, 32vw, 430px);
+      bottom: 4%;
+      left: 0%;
+    }
+
+    /* ── BRAND STORY ── */
+    .brand-story {
+      background-color: #fff;
+      padding: 100px 0;
+    }
+
+    .brand-story-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 48px;
+      display: flex;
+      align-items: center;
+      gap: 80px;
+    }
+
+    .brand-story-image {
+      flex: 0 0 42%;
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+    }
+
+    .brand-story-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .brand-story-text {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .brand-story-title {
+      font-size: clamp(22px, 2.4vw, 32px);
+      font-weight: 600;
+      line-height: 1.45;
+      color: #111;
+    }
+
+    .brand-story-text p {
+      font-size: 15px;
+      line-height: 1.9;
+      color: #333;
+    }
+
+    /* ── PROMISE ── */
+    .promise {
+      background-color: #2B52E0;
+      padding: 100px 0 120px;
+    }
+
+    .promise-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 48px;
+      text-align: center;
+    }
+
+
+    .promise-title {
+      text-align: center;
+      color: #fff;
+      font-size: clamp(24px, 2.6vw, 34px);
+      font-weight: 600;
+      line-height: 1.4;
+      margin-bottom: 52px;
+    }
+
+    .promise-list {
+      display: flex;
+      flex-direction: row;
+      gap: 20px;
+    }
+
+    .promise-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .promise-image {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+    }
+
+    .promise-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .promise-content {
+      flex: 1;
+      background: #fff;
+      padding: 24px 28px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .promise-number {
+      font-size: 52px;
+      font-weight: 900;
+      line-height: 1;
+      color: rgba(43, 82, 224, 0.18);
+    }
+
+    .promise-name {
+      font-size: 16px;
+      font-weight: 800;
+      color: #111;
+    }
+
+    .promise-content p {
+      font-size: 13px;
+      line-height: 1.85;
+      color: #444;
+    }
+
+    /* ── MENU ── */
+    .menu {
+      background-color: #f8f8f6;
+      padding: 100px 0 80px;
+    }
+
+    .menu-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      color: #2B52E0;
+      margin-bottom: 12px;
+    }
+
+    .section-label--white {
+      color: rgba(255, 255, 255, 0.55);
+    }
+
+    .section-title {
+      font-size: clamp(24px, 2.6vw, 34px);
+      font-weight: 600;
+      color: #111;
+      line-height: 1.4;
+      margin-bottom: 52px;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .menu-card {
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    .menu-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.1);
+    }
+
+    .menu-card-image {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+    }
+
+    .menu-card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .menu-card-image--gradient {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .menu-card-image--carbonara {
+      background: linear-gradient(135deg, #f5e6c8 0%, #e8c97a 100%);
+    }
+
+    .menu-card-image--carbonara::after {
+      content: '🍝';
+      font-size: 64px;
+    }
+
+    .menu-card-image--vongole {
+      background: linear-gradient(135deg, #d4eaf7 0%, #a8cfe8 100%);
+    }
+
+    .menu-card-image--vongole::after {
+      content: '🐚';
+      font-size: 64px;
+    }
+
+    .menu-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: #2B52E0;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+
+    .menu-card-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .menu-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+    }
+
+    .menu-card-name {
+      font-size: 15px;
+      font-weight: 800;
+      color: #111;
+    }
+
+    .menu-card-price {
+      font-size: 14px;
+      font-weight: 700;
+      color: #2B52E0;
+      white-space: nowrap;
+    }
+
+    .menu-card-desc {
+      font-size: 13px;
+      line-height: 1.7;
+      color: #666;
+    }
+
+    .menu-cta {
+      margin-top: 48px;
+      text-align: center;
+    }
+
+    .btn-menu-more {
+      display: inline-block;
+      border: 2px solid #2B52E0;
+      color: #2B52E0;
+      border-radius: 999px;
+      padding: 13px 36px;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .btn-menu-more:hover {
+      background: #2B52E0;
+      color: #fff;
+    }
+
+    /* ── STATS ── */
+    .stats {
+      background-color: #2B52E0;
+      padding: 72px 48px;
+    }
+
+    .stats-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+    }
+
+    .stat-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .stat-number {
+      font-size: clamp(36px, 4vw, 52px);
+      font-weight: 900;
+      color: #fff;
+      line-height: 1;
+    }
+
+    .stat-unit {
+      font-size: 0.5em;
+      font-weight: 700;
+    }
+
+    .stat-label {
+      font-size: 14px;
+      color: rgba(255,255,255,0.65);
+      letter-spacing: 0.5px;
+    }
+
+    .stat-divider {
+      width: 1px;
+      height: 60px;
+      background: rgba(255,255,255,0.2);
+      flex-shrink: 0;
+    }
+
+    /* ── REVIEWS ── */
+    .reviews {
+      background-color: #faf7f2;
+      padding: 100px 0;
+    }
+
+    .reviews-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 52px;
+    }
+
+    .review-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .review-stars {
+      color: #F5C518;
+      font-size: 16px;
+      letter-spacing: 2px;
+    }
+
+    .review-text {
+      font-size: 14px;
+      line-height: 1.85;
+      color: #333;
+      flex: 1;
+    }
+
+    .review-author {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-top: 16px;
+      border-top: 1px solid #e8e8e4;
+    }
+
+    .review-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: #111;
+    }
+
+    .review-location {
+      font-size: 13px;
+      color: #999;
+    }
+
+    /* ── STORE ── */
+    .store {
+      background-color: #2B52E0;
+      padding: 100px 0;
+    }
+
+    .store-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 48px;
+      display: flex;
+      align-items: center;
+      gap: 80px;
+    }
+
+    .store-text {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .store-text .section-label {
+      margin-bottom: -8px;
+    }
+
+    .store-title {
+      font-size: clamp(24px, 2.6vw, 34px);
+      font-weight: 600;
+      color: #fff;
+      line-height: 1.4;
+    }
+
+    .store-desc {
+      font-size: 15px;
+      line-height: 1.85;
+      color: rgba(255,255,255,0.7);
+    }
+
+    .store-regions {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .store-region {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+      border-right: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .store-region:nth-child(even) {
+      border-right: none;
+    }
+
+    .store-region:nth-last-child(-n+2) {
+      border-bottom: none;
+    }
+
+    .region-name {
+      font-size: 13px;
+      color: rgba(255,255,255,0.75);
+    }
+
+    .region-count {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .btn-store {
+      display: inline-block;
+      background: #F5C518;
+      color: #111;
+      border-radius: 999px;
+      padding: 14px 36px;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      width: fit-content;
+      transition: background 0.2s;
+    }
+
+    .btn-store:hover {
+      background: #e6b800;
+    }
+
+    .store-map {
+      flex: 0 0 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .map-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .map-placeholder svg {
+      width: 240px;
+      height: auto;
+    }
+
+    .map-label {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 1px;
+    }
+
+    /* ── FRANCHISE ── */
+    .franchise {
+      background-color: #f2f5ff;
+      padding: 100px 0;
+    }
+
+    .franchise-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 48px;
+      display: flex;
+      align-items: center;
+      gap: 80px;
+    }
+
+    .franchise-text {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .franchise-text .section-label {
+      margin-bottom: -8px;
+    }
+
+    .section-label--blue {
+      color: #2B52E0;
+    }
+
+    .franchise-title {
+      font-size: clamp(24px, 2.6vw, 34px);
+      font-weight: 600;
+      color: #111;
+      line-height: 1.4;
+    }
+
+    .franchise-desc {
+      font-size: 15px;
+      line-height: 1.85;
+      color: #444;
+    }
+
+    .franchise-benefits {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .franchise-benefits li {
+      font-size: 14px;
+      color: #333;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .benefit-icon {
+      color: #2B52E0;
+      font-weight: 900;
+    }
+
+    .btn-franchise {
+      display: inline-block;
+      background: #2B52E0;
+      color: #fff;
+      border-radius: 999px;
+      padding: 14px 36px;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      width: fit-content;
+      transition: background 0.2s;
+    }
+
+    .btn-franchise:hover {
+      background: #1a3fc0;
+    }
+
+    .franchise-visual {
+      flex: 0 0 360px;
+    }
+
+    .franchise-card {
+      background: #f4f6ff;
+      border-radius: 16px;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .franchise-card-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .fc-label {
+      font-size: 14px;
+      color: #666;
+    }
+
+    .fc-value {
+      font-size: 18px;
+      font-weight: 800;
+      color: #111;
+    }
+
+    .franchise-card-divider {
+      height: 1px;
+      background: #dde2f5;
+    }
+
+    .fc-note {
+      font-size: 12px;
+      color: #999;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      background-color: #111;
+      padding: 72px 0 48px;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 48px;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.5fr;
+      gap: 48px;
+    }
+
+    .footer-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #fff;
+      font-size: 18px;
+      font-weight: 700;
+      text-decoration: none;
+      margin-bottom: 12px;
+    }
+
+    .footer-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .footer-tagline {
+      font-size: 13px;
+      color: rgba(255,255,255,0.45);
+    }
+
+    .footer-copy {
+      font-size: 12px;
+      color: rgba(255,255,255,0.3);
+      margin-top: 24px;
+    }
+
+    .footer-biz {
+      margin-top: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .footer-biz p {
+      font-size: 11px;
+      color: rgba(255,255,255,0.2);
+      line-height: 1.7;
+    }
+
+    .footer-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-nav strong {
+      font-size: 13px;
+      color: #fff;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .footer-nav a {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-nav a:hover {
+      color: #fff;
+    }
+
+    .footer-contact {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-contact strong {
+      font-size: 13px;
+      color: #fff;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .footer-contact p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .footer-social a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.6);
+      font-size: 11px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .footer-social a:hover {
+      border-color: #fff;
+      color: #fff;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 0 20px;
+      }
+
+      nav {
+        display: none;
+      }
+
+      .hero-content {
+        padding-left: 28px;
+      }
+
+      .pasta-container {
+        width: 100%;
+        opacity: 0.5;
+      }
+
+      .brand-story-inner {
+        flex-direction: column;
+        gap: 40px;
+        padding: 0 24px;
+      }
+
+      .brand-story-image {
+        flex: none;
+        width: 100%;
+        aspect-ratio: 4 / 3;
+      }
+
+      .menu-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .stats-inner {
+        flex-wrap: wrap;
+        gap: 32px;
+      }
+
+      .stat-divider {
+        display: none;
+      }
+
+      .franchise-inner {
+        flex-direction: column;
+        gap: 48px;
+        padding: 0 24px;
+      }
+
+      .franchise-visual {
+        flex: none;
+        width: 100%;
+      }
+
+      .footer-inner {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+        padding: 0 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a class="logo" href="#">
+      <img class="logo-icon" src="logo-icon.png" alt="파스타당 로고 아이콘" />
+      <span>파스타당</span>
+    </a>
+
+    <nav>
+      <a href="#brand">브랜드 소개</a>
+      <a href="#menu">메뉴</a>
+      <a href="#store">매장 안내</a>
+      <a href="#franchise">프랜차이즈</a>
+    </nav>
+
+    <button class="btn-reserve">예약하기</button>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1 class="hero-title">
+        매일 먹어도<br />
+        질리지 않는 파스타
+      </h1>
+    </div>
+
+    <div class="pasta-container">
+      <div class="pasta-item pasta-item--meatball">
+        <div class="pasta-plate">
+          <img src="pasta_meatball.png" alt="미트볼 파스타" />
+        </div>
+      </div>
+      <div class="pasta-item pasta-item--cream">
+        <div class="pasta-plate">
+          <img src="pasta_cream.png" alt="크림 파스타" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── BRAND STORY ── -->
+  <section class="brand-story" id="brand">
+    <div class="brand-story-inner">
+      <div class="brand-story-image">
+        <img src="chef.jpg" alt="파스타당 셰프" />
+      </div>
+      <div class="brand-story-text">
+        <h2 class="brand-story-title">
+          맛있는 파스타집 하나쯤은<br />
+          내 동네에도 있어야 하잖아요.
+        </h2>
+        <p>
+          특별한 날에만 가는 이탈리안 레스토랑도,<br />
+          배달시켜 먹는 파스타도 아닌-<br />
+          편하게 매일 가도 좋은 파스타집.
+        </p>
+        <p>
+          그 자리에 파스타당이 있습니다.<br />
+          매일 소스를 만들고,<br />
+          주문이 들어올 때마다 새로 면을 삶습니다.<br />
+          화려한 메뉴판 대신 적은 메뉴를 깊게 파고,<br />
+          한 그릇 한 그릇에 집중합니다.
+        </p>
+        <p>
+          이름처럼, 파스타를 사랑하는 사람들의 편.<br />
+          파스타당(黨).
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PROMISE ── -->
+  <section class="promise">
+    <div class="promise-inner">
+      <div class="section-label section-label--white">PROMISE</div>
+      <h2 class="promise-title">파스타당이 지키는 세 가지</h2>
+
+      <div class="promise-list">
+        <div class="promise-item">
+          <div class="promise-image">
+            <img src="promise_1.png" alt="매일 만드는 소스" />
+          </div>
+          <div class="promise-content">
+            <span class="promise-number">1</span>
+            <strong class="promise-name">매일 만드는 소스</strong>
+            <p>냉동 소스를 쓰지 않습니다.<br />매일 아침마다 그 날의 소스를 직접 만듭니다. 번거롭지만 그게 맛의 차이입니다.</p>
+          </div>
+        </div>
+
+        <div class="promise-item">
+          <div class="promise-image">
+            <img src="promise_2.png" alt="주문 후 삶는 면" />
+          </div>
+          <div class="promise-content">
+            <span class="promise-number">2</span>
+            <strong class="promise-name">주문 후 삶는 면</strong>
+            <p>면은 미리 삶아두지 않습니다.<br />주문이 들어오면 그때 삶기 시작합니다. 기다리는 시간이 조금 더 걸리는 이유입니다.</p>
+          </div>
+        </div>
+
+        <div class="promise-item">
+          <div class="promise-image">
+            <img src="promise_3.png" alt="딱 맞는 온도" />
+          </div>
+          <div class="promise-content">
+            <span class="promise-number">3</span>
+            <strong class="promise-name">가장 맛있는 온도</strong>
+            <p>오랜 연구 끝에 찾아냈습니다. 재료마다, 조리 단계마다 다른 파스타당만의 비법 온도. 다른 곳에서 느끼지 못한 맛의 이유입니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── MENU ── -->
+  <section class="menu" id="menu">
+    <div class="menu-inner">
+      <div class="section-label">MENU</div>
+      <h2 class="section-title">매일 먹어도 질리지 않는<br />파스타당의 대표 메뉴</h2>
+
+      <div class="menu-grid">
+        <div class="menu-card">
+          <div class="menu-card-image">
+            <img src="pasta_meatball.png" alt="미트볼 아라비아따" />
+            <span class="menu-badge">BEST</span>
+          </div>
+          <div class="menu-card-body">
+            <div class="menu-card-top">
+              <strong class="menu-card-name">미트볼 아라비아따</strong>
+              <span class="menu-card-price">13,900원</span>
+            </div>
+            <p class="menu-card-desc">직접 빚은 미트볼과 매콤한 토마토 소스.<br />파스타당의 시그니처.</p>
+          </div>
+        </div>
+
+        <div class="menu-card">
+          <div class="menu-card-image">
+            <img src="pasta_cream.png" alt="랍스터 크림 파스타" style="transform: scale(0.88);" />
+            <span class="menu-badge">NEW</span>
+          </div>
+          <div class="menu-card-body">
+            <div class="menu-card-top">
+              <strong class="menu-card-name">랍스터 크림 파스타</strong>
+              <span class="menu-card-price">16,900원</span>
+            </div>
+            <p class="menu-card-desc">진한 랍스터 육수 베이스 크림소스.<br />부드럽고 깊은 바다의 맛.</p>
+          </div>
+        </div>
+
+        <div class="menu-card">
+          <div class="menu-card-image">
+            <img src="pasta_tomato.png" alt="토마토 파스타" style="transform: scale(0.88);" />
+          </div>
+          <div class="menu-card-body">
+            <div class="menu-card-top">
+              <strong class="menu-card-name">토마토 파스타</strong>
+              <span class="menu-card-price">12,900원</span>
+            </div>
+            <p class="menu-card-desc">매일 끓인 토마토 소스와 바질, 파마산.<br />군더더기 없이 깔끔한 한 그릇.</p>
+          </div>
+        </div>
+
+        <div class="menu-card">
+          <div class="menu-card-image">
+            <img src="pasta_vongole.png" alt="봉골레 비앙코" />
+          </div>
+          <div class="menu-card-body">
+            <div class="menu-card-top">
+              <strong class="menu-card-name">봉골레 비앙코</strong>
+              <span class="menu-card-price">13,900원</span>
+            </div>
+            <p class="menu-card-desc">제철 바지락과 화이트 와인, 올리브오일.<br />깔끔하고 향긋한 조개의 풍미.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-cta">
+        <a href="#" class="btn-menu-more">전체 메뉴 보기</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── STATS ── -->
+  <section class="stats">
+    <div class="stats-inner">
+      <div class="stat-item">
+        <span class="stat-number">87<span class="stat-unit">개</span></span>
+        <span class="stat-label">전국 매장 수</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-number">230<span class="stat-unit">만+</span></span>
+        <span class="stat-label">누적 방문 고객</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-number">4.8<span class="stat-unit">점</span></span>
+        <span class="stat-label">평균 고객 평점</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-number">2016<span class="stat-unit">년</span></span>
+        <span class="stat-label">브랜드 창업</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── REVIEWS ── -->
+  <section class="reviews">
+    <div class="reviews-inner">
+      <div class="section-label">REVIEW</div>
+      <h2 class="section-title">파스타당을 찾은<br />손님들의 이야기</h2>
+      <div class="reviews-grid">
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"동네에 이런 파스타집이 생긴 게 너무 좋아요. 소스가 진짜 식당 수준이고, 면이 항상 탱탱해요. 일주일에 두 번은 오는 것 같아요."</p>
+          <div class="review-author">
+            <span class="review-name">김지은</span>
+            <span class="review-location">서울 마포점</span>
+          </div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"미트볼 아라비아따가 너무 맛있어서 처음엔 혼자 먹으러 갔다가 이젠 가족들이랑 자주 갑니다. 아이들도 좋아하는 맛이에요."</p>
+          <div class="review-author">
+            <span class="review-name">박성훈</span>
+            <span class="review-location">경기 분당점</span>
+          </div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★☆</div>
+          <p class="review-text">"랍스터 크림파스타가 이 가격에 이 퀄리티면 진짜 대박이에요. 기다리는 시간이 좀 있지만 그만한 가치가 충분히 있습니다."</p>
+          <div class="review-author">
+            <span class="review-name">이수민</span>
+            <span class="review-location">부산 해운대점</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── STORE ── -->
+  <section class="store" id="store">
+    <div class="store-inner">
+      <div class="store-text">
+        <div class="section-label section-label--white">STORE</div>
+        <h2 class="store-title">내 동네 파스타당,<br />지금 찾아보세요</h2>
+        <p class="store-desc">전국 87개 매장에서 같은 레시피, 같은 맛을 만날 수 있습니다.<br />어디서 드셔도 파스타당은 파스타당입니다.</p>
+        <div class="store-regions">
+          <div class="store-region"><span class="region-name">서울</span><span class="region-count">24개</span></div>
+          <div class="store-region"><span class="region-name">경기·인천</span><span class="region-count">21개</span></div>
+          <div class="store-region"><span class="region-name">부산·경남</span><span class="region-count">14개</span></div>
+          <div class="store-region"><span class="region-name">대구·경북</span><span class="region-count">9개</span></div>
+          <div class="store-region"><span class="region-name">대전·충청</span><span class="region-count">8개</span></div>
+          <div class="store-region"><span class="region-name">광주·전라</span><span class="region-count">7개</span></div>
+          <div class="store-region"><span class="region-name">강원·제주</span><span class="region-count">4개</span></div>
+        </div>
+        <a href="#" class="btn-store">가까운 매장 찾기</a>
+      </div>
+      <div class="store-map">
+        <div class="map-placeholder">
+          <svg viewBox="0 0 280 350" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- 한국 본토 윤곽 -->
+            <path d="
+              M 100,38
+              L 118,28 L 148,22 L 178,24
+              L 205,34 L 222,52 L 232,78
+              L 234,106 L 230,132
+              L 224,152 L 218,164
+              L 205,180 L 192,194
+              L 172,208 L 152,214
+              L 132,210 L 112,200
+              L 95,184 L 82,164
+              L 74,142 L 75,118
+              L 70,96 L 76,74
+              L 88,55 Z
+            "
+              fill="rgba(255,255,255,0.12)"
+              stroke="rgba(255,255,255,0.45)"
+              stroke-width="2"
+              stroke-linejoin="round"
+            />
+            <!-- 제주도 -->
+            <ellipse cx="148" cy="262" rx="30" ry="13"
+              fill="rgba(255,255,255,0.12)"
+              stroke="rgba(255,255,255,0.45)"
+              stroke-width="1.5"
+            />
+            <!-- 서울 (황색 강조) -->
+            <circle cx="118" cy="72" r="6" fill="#F5C518"/>
+            <text x="127" y="76" fill="rgba(255,255,255,0.9)" font-size="11" font-family="Noto Sans KR,sans-serif">서울</text>
+            <!-- 부산 (황색 강조) -->
+            <circle cx="208" cy="188" r="5" fill="#F5C518"/>
+            <text x="216" y="192" fill="rgba(255,255,255,0.9)" font-size="10" font-family="Noto Sans KR,sans-serif">부산</text>
+            <!-- 기타 주요 도시 -->
+            <circle cx="185" cy="152" r="4" fill="rgba(255,255,255,0.5)"/><!-- 대구 -->
+            <circle cx="148" cy="118" r="4" fill="rgba(255,255,255,0.5)"/><!-- 대전 -->
+            <circle cx="112" cy="174" r="4" fill="rgba(255,255,255,0.5)"/><!-- 광주 -->
+            <circle cx="97"  cy="82"  r="4" fill="rgba(255,255,255,0.5)"/><!-- 인천 -->
+            <circle cx="175" cy="82"  r="4" fill="rgba(255,255,255,0.5)"/><!-- 강릉 -->
+          </svg>
+          <p class="map-label">전국 매장 분포</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FRANCHISE ── -->
+  <section class="franchise" id="franchise">
+    <div class="franchise-inner">
+      <div class="franchise-text">
+        <div class="section-label section-label--blue">FRANCHISE</div>
+        <h2 class="franchise-title">파스타를 사랑하는<br />파트너를 찾습니다</h2>
+        <p class="franchise-desc">
+          파스타당은 함께 성장할 가맹점주를 모집합니다.<br />
+          검증된 레시피와 운영 시스템, 지속적인 본사 지원으로<br />
+          안정적인 창업을 도와드립니다.
+        </p>
+        <ul class="franchise-benefits">
+          <li><span class="benefit-icon">✓</span> 초기 투자비용 최소화 — 소형 매장 운영 가능</li>
+          <li><span class="benefit-icon">✓</span> 본사 직접 레시피 교육 및 소스 공급</li>
+          <li><span class="benefit-icon">✓</span> 오픈 후 3개월 전담 슈퍼바이저 지원</li>
+        </ul>
+        <a href="#" class="btn-franchise">가맹 문의하기</a>
+      </div>
+      <div class="franchise-visual">
+        <div class="franchise-card">
+          <div class="franchise-card-row">
+            <span class="fc-label">창업 비용</span>
+            <span class="fc-value">3,500만원~</span>
+          </div>
+          <div class="franchise-card-row">
+            <span class="fc-label">권장 면적</span>
+            <span class="fc-value">15평~</span>
+          </div>
+          <div class="franchise-card-row">
+            <span class="fc-label">평균 월매출</span>
+            <span class="fc-value">2,200만원</span>
+          </div>
+          <div class="franchise-card-row">
+            <span class="fc-label">로열티</span>
+            <span class="fc-value">월 20만원 정액</span>
+          </div>
+          <div class="franchise-card-divider"></div>
+          <p class="fc-note">* 입지 및 매장 규모에 따라 상이할 수 있습니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a class="footer-logo" href="#">
+          <img class="logo-icon" src="logo-icon.png" alt="파스타당 로고 아이콘" /> 파스타당
+        </a>
+        <p class="footer-tagline">매일 먹어도 질리지 않는 파스타</p>
+        <p class="footer-copy">© 2024 파스타당. All rights reserved.</p>
+        <div class="footer-biz">
+          <p>상호: 주식회사 파스타당 · 대표: 홍길동</p>
+          <p>사업자등록번호: 123-45-67890</p>
+          <p>통신판매업신고번호: 2024-서울강남-0000</p>
+          <p>주소: 서울특별시 강남구 테헤란로 123, 4층</p>
+        </div>
+      </div>
+
+      <nav class="footer-nav">
+        <strong>메뉴</strong>
+        <a href="#">브랜드 소개</a>
+        <a href="#">대표 메뉴</a>
+        <a href="#">매장 안내</a>
+        <a href="#">프랜차이즈</a>
+      </nav>
+
+      <nav class="footer-nav">
+        <strong>고객 지원</strong>
+        <a href="#">자주 묻는 질문</a>
+        <a href="#">예약 안내</a>
+        <a href="#">제휴 문의</a>
+        <a href="#">개인정보처리방침</a>
+      </nav>
+
+      <div class="footer-contact">
+        <strong>연락처</strong>
+        <p>가맹 문의: 02-1234-5678</p>
+        <p>운영시간: 평일 09:00 – 18:00</p>
+        <p>이메일: hello@pastadang.com</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram">IG</a>
+          <a href="#" aria-label="YouTube">YT</a>
+          <a href="#" aria-label="KakaoTalk">KT</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // 부드러운 스크롤 + 헤더 오프셋
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', e => {
+        const id = link.getAttribute('href').slice(1);
+        const target = document.getElementById(id);
+        if (!target) return;
+        e.preventDefault();
+        const offset = target.getBoundingClientRect().top + window.scrollY - 72;
+        window.scrollTo({ top: offset, behavior: 'smooth' });
+      });
+    });
+  </script>
+
+  <script>
+    const header = document.querySelector('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 20) {
+        header.style.backgroundColor = 'rgba(255, 255, 255, 0.6)';
+        header.style.backdropFilter = 'blur(12px)';
+        header.style.boxShadow = '0 1px 0 rgba(0,0,0,0.08)';
+        header.querySelectorAll('nav a').forEach(a => a.style.color = '#111');
+        header.querySelector('.logo').style.color = '#111';
+        header.querySelector('.logo .logo-icon').style.filter = 'invert(1)';
+      } else {
+        header.style.backgroundColor = 'transparent';
+        header.style.backdropFilter = 'none';
+        header.style.boxShadow = 'none';
+        header.querySelectorAll('nav a').forEach(a => a.style.color = '#fff');
+        header.querySelector('.logo').style.color = '#fff';
+        header.querySelector('.logo .logo-icon').style.filter = 'invert(0)';
+      }
+    });
+  </script>
+
+</body>
+</html>
