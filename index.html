@@ -6,7 +6,7 @@
   <title>파스타당</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Nanum+Gothic:wght@400;700&family=Playfair+Display:ital,wght@0,700;0,900;1,400&display=swap" rel="stylesheet" />
   <style>
     @font-face {
       font-family: 'YPairing';
@@ -19,6 +19,7 @@
       src: url('YPairingFont-Bold.otf') format('opentype');
       font-weight: 700;
     }
+
 
     *, *::before, *::after {
       box-sizing: border-box;
@@ -42,7 +43,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 48px;
+      padding: 0 clamp(180px, 20vw, 320px) 0 48px;
       height: 64px;
       background-color: transparent;
       transition: background-color 0.3s, backdrop-filter 0.3s, box-shadow 0.3s;
@@ -52,7 +53,7 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      color: #fff;
+      color: #ffffff;
       font-family: 'YPairing', 'Noto Sans KR', sans-serif;
       font-size: 18px;
       font-weight: 400;
@@ -74,7 +75,7 @@
     }
 
     nav a {
-      color: #fff;
+      color: #ffffff;
       text-decoration: none;
       font-size: 15px;
       font-weight: 400;
@@ -87,8 +88,8 @@
     }
 
     .btn-reserve {
-      background-color: #F5C518;
-      color: #1a1a1a;
+      background-color: #ffffff;
+      color: #0c3aa8;
       border: none;
       border-radius: 999px;
       padding: 10px 24px;
@@ -100,138 +101,177 @@
     }
 
     .btn-reserve:hover {
-      background-color: #e6b800;
+      background-color: #e8eeff;
     }
 
     /* ── HERO ── */
     .hero {
       position: relative;
       width: 100%;
-      height: 100vh;
-      min-height: 560px;
-      background-color: #1a1a1a;
-      background-image: url('hero-bg.jpg');
-      background-size: cover;
-      background-position: center;
+      min-height: 100vh;
       overflow: hidden;
       display: flex;
       align-items: center;
+      justify-content: center;
+      background: #2B52E0;
+      padding: 120px 40px 80px;
     }
 
-    .hero::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(
-        ellipse at center,
-        rgba(0, 0, 0, 0.35) 0%,
-        rgba(0, 0, 0, 0.20) 50%,
-        rgba(0, 0, 0, 0.10) 100%
-      );
-      z-index: 1;
-    }
+    .hero-bg { display: none; }
 
     .hero-content {
       position: relative;
-      z-index: 2;
-      width: 100%;
+      z-index: 3;
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
-      padding: 0 24px;
+      max-width: 640px;
     }
 
     .hero-eyebrow {
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 4px;
-      color: rgba(255, 255, 255, 0.7);
-      margin-bottom: 20px;
-    }
-
-.hero-title {
-      color: #fff;
-      font-family: 'YPairing', 'Noto Sans KR', sans-serif;
-      font-size: clamp(28px, 3.5vw, 48px);
-      font-weight: 400;
-      line-height: 1.4;
-      letter-spacing: 0;
-    }
-
-    .hero-sub {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
       font-size: 15px;
-      color: rgba(255, 255, 255, 0.75);
-      line-height: 1.8;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.72);
+      margin-bottom: 20px;
+      letter-spacing: 0.2px;
+    }
+
+    .hero-title {
+      font-family: '가평한석봉 큰붓', sans-serif;
+      font-size: clamp(40px, 5.5vw, 72px);
+      font-weight: 900;
+      line-height: 1.12;
+      color: #ffffff;
       margin-bottom: 36px;
+      letter-spacing: -1px;
+    }
+
+    .hero-divider { display: none; }
+    .hero-desc { display: none; }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
     }
 
     .hero-cta {
       display: inline-block;
-      background-color: #F5C518;
+      background: #ffffff;
       color: #1a1a1a;
-      border-radius: 999px;
-      padding: 14px 36px;
-      font-size: 15px;
+      border-radius: 6px;
+      padding: 13px 30px;
+      font-size: 14px;
       font-weight: 700;
       text-decoration: none;
-      transition: background-color 0.2s;
+      border: none;
+      cursor: pointer;
+      transition: background 0.18s, transform 0.18s;
     }
 
     .hero-cta:hover {
-      background-color: #e6b800;
+      background: #f5f5f5;
+      transform: translateY(-1px);
     }
 
-    /* ── PASTA IMAGES ── */
-    .pasta-container {
+    .hero-cta-link {
+      display: inline-block;
+      background: transparent;
+      color: #ffffff;
+      border: 2px solid rgba(255, 255, 255, 0.7);
+      border-radius: 6px;
+      padding: 11px 28px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: border-color 0.18s, background 0.18s;
+    }
+
+    .hero-cta-link:hover {
+      border-color: #ffffff;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* scattered pasta images */
+    .hero-pasta-wrap {
       position: absolute;
-      top: 0;
-      right: 0;
-      width: 65%;
-      height: 100%;
+      z-index: 2;
       pointer-events: none;
-    }
-
-    /* Wrapper: holds bg circle + pasta plate, centered via flex */
-    .pasta-item {
-      position: absolute;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-.pasta-plate {
+    .hero-pasta-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: none;
+      width: calc(100% + 52px);
+      aspect-ratio: 1 / 1;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.55) 2px, transparent 2px);
+      background-size: 14px 14px;
+      background-position: 0 0;
+    }
+
+    .hero-pasta-wrap img {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: contain;
       position: relative;
       z-index: 1;
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      overflow: hidden;
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
     }
 
-    .pasta-plate img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
+    .hero-pasta-1 {
+      width: clamp(220px, 26vw, 380px);
+      bottom: -40px;
+      left: -40px;
+      transform: rotate(-20deg);
     }
 
-    /* Meatball — upper right */
-    .pasta-item--meatball {
-      width: clamp(260px, 34vw, 460px);
-      height: clamp(260px, 34vw, 460px);
-      top: 4%;
-      right: 4%;
+    .hero-pasta-1 img {
+      filter: drop-shadow(0 20px 40px rgba(0,0,0,0.35));
     }
 
-    /* Cream — lower left */
-    .pasta-item--cream {
-      width: clamp(240px, 32vw, 430px);
-      height: clamp(240px, 32vw, 430px);
-      bottom: 4%;
-      left: 0%;
+    .hero-pasta-2 {
+      width: clamp(240px, 28vw, 400px);
+      bottom: -50px;
+      right: -30px;
+      transform: rotate(18deg);
     }
+
+    .hero-pasta-2 img {
+      filter: drop-shadow(0 20px 40px rgba(0,0,0,0.35));
+    }
+
+    .hero-pasta-3 {
+      width: clamp(180px, 20vw, 300px);
+      top: 60px;
+      left: -30px;
+      transform: rotate(-10deg);
+      opacity: 0.9;
+    }
+
+    .hero-pasta-3 img {
+      filter: drop-shadow(0 16px 32px rgba(0,0,0,0.3));
+    }
+
+    .hero-pasta-4 {
+      width: clamp(160px, 18vw, 280px);
+      top: 40px;
+      right: -20px;
+      transform: rotate(14deg);
+      opacity: 0.9;
+    }
+
+    .hero-pasta-4 img {
+      filter: drop-shadow(0 16px 32px rgba(0,0,0,0.3));
+    }
+
+
 
     /* ── BRAND STORY ── */
     .brand-story {
@@ -269,8 +309,9 @@
     }
 
     .brand-story-title {
+      font-family: '가평한석봉 큰붓', sans-serif;
       font-size: clamp(22px, 2.4vw, 32px);
-      font-weight: 600;
+      font-weight: 400;
       line-height: 1.45;
       color: #111;
     }
@@ -296,6 +337,8 @@
 
 
     .promise-title {
+      font-family: '가평한석봉 큰붓', sans-serif;
+      font-weight: 400;
       text-align: center;
       color: #fff;
       font-size: clamp(24px, 2.6vw, 34px);
@@ -384,8 +427,9 @@
     }
 
     .section-title {
+      font-family: '가평한석봉 큰붓', sans-serif;
       font-size: clamp(24px, 2.6vw, 34px);
-      font-weight: 600;
+      font-weight: 400;
       color: #111;
       line-height: 1.4;
       margin-bottom: 52px;
@@ -868,8 +912,9 @@
     }
 
     .franchise-title {
+      font-family: '가평한석봉 큰붓', sans-serif;
       font-size: clamp(24px, 2.6vw, 34px);
-      font-weight: 600;
+      font-weight: 400;
       color: #111;
       line-height: 1.4;
     }
@@ -1091,13 +1136,17 @@
         display: none;
       }
 
-      .hero-content {
-        padding-left: 28px;
+      .hero {
+        padding: 100px 24px 60px;
+        min-height: 100svh;
       }
 
-      .pasta-container {
-        width: 100%;
-        opacity: 0.5;
+      .hero-pasta-1, .hero-pasta-2 {
+        width: clamp(160px, 45vw, 240px);
+      }
+
+      .hero-pasta-3, .hero-pasta-4 {
+        width: clamp(120px, 32vw, 180px);
       }
 
       .brand-story-inner {
@@ -1158,23 +1207,38 @@
       <a href="#store">매장 안내</a>
       <a href="#franchise">프랜차이즈</a>
     </nav>
-
-    <button class="btn-reserve">예약하기</button>
   </header>
 
   <section class="hero">
     <div class="hero-content">
-      <p class="hero-eyebrow">PASTA DANG — SINCE 2016</p>
+      <p class="hero-eyebrow">Handmade with love, always fresh, and always good</p>
       <h1 class="hero-title">
         매일 먹어도<br />
-        질리지 않는 파스타
+        질리지 않는<br />
+        파스타
       </h1>
-      <p class="hero-sub">
-        매일 만드는 소스, 주문 후 삶는 면.<br />
-        동네에서 만나는 진짜 이탈리안.
-      </p>
+      <div class="hero-actions">
+        <a href="#" class="hero-cta">예약하기</a>
+        <a href="#menu" class="hero-cta-link">메뉴 보기</a>
+      </div>
     </div>
 
+    <div class="hero-pasta-wrap hero-pasta-1">
+      <div class="hero-pasta-ring"></div>
+      <img src="pasta_tomato.png" alt="" />
+    </div>
+    <div class="hero-pasta-wrap hero-pasta-2">
+      <div class="hero-pasta-ring"></div>
+      <img src="pasta_cream.png" alt="" />
+    </div>
+    <div class="hero-pasta-wrap hero-pasta-3">
+      <div class="hero-pasta-ring"></div>
+      <img src="pasta_1.png" alt="" />
+    </div>
+    <div class="hero-pasta-wrap hero-pasta-4">
+      <div class="hero-pasta-ring"></div>
+      <img src="pasta_vongole.png" alt="" />
+    </div>
   </section>
 
   <!-- ── BRAND STORY ── -->
@@ -1255,7 +1319,7 @@
   <section class="menu" id="menu">
     <div class="menu-inner">
       <div class="section-label">MENU</div>
-      <h2 class="section-title">매일 먹어도 질리지 않는<br />파스타당의 대표 메뉴</h2>
+      <h2 class="section-title">메뉴</h2>
 
       <div class="menu-grid">
         <div class="menu-card">
@@ -1650,8 +1714,8 @@
         header.style.backgroundColor = 'transparent';
         header.style.backdropFilter = 'none';
         header.style.boxShadow = 'none';
-        header.querySelectorAll('nav a').forEach(a => a.style.color = '#fff');
-        header.querySelector('.logo').style.color = '#fff';
+        header.querySelectorAll('nav a').forEach(a => a.style.color = '#111');
+        header.querySelector('.logo').style.color = '#111';
         header.querySelector('.logo .logo-icon').style.filter = 'invert(0)';
       }
     });
