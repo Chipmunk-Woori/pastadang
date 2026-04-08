@@ -1147,9 +1147,9 @@
       align-items: center;
       gap: 8px;
       color: #fff;
-      font-family: 'YPairing', 'Noto Sans KR', sans-serif;
+      font-family: '가평한석봉 큰붓', sans-serif;
       font-size: 18px;
-      font-weight: 400;
+      font-weight: 900;
       text-decoration: none;
       margin-bottom: 12px;
     }
@@ -1250,6 +1250,96 @@
     .footer-social a:hover {
       border-color: #fff;
       color: #fff;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes floatA {
+      0%, 100% { transform: rotate(-20deg) translateY(0px); }
+      50%       { transform: rotate(-20deg) translateY(-14px); }
+    }
+    @keyframes floatB {
+      0%, 100% { transform: rotate(18deg) translateY(0px); }
+      50%       { transform: rotate(18deg) translateY(-10px); }
+    }
+    @keyframes floatC {
+      0%, 100% { transform: rotate(-10deg) translateY(0px); }
+      50%       { transform: rotate(-10deg) translateY(-12px); }
+    }
+    @keyframes floatD {
+      0%, 100% { transform: rotate(14deg) translateY(0px); }
+      50%       { transform: rotate(14deg) translateY(-9px); }
+    }
+
+    /* Hero entrance */
+    .hero-eyebrow  { animation: fadeInUp 0.65s ease-out 0.05s both; }
+    .hero-title    { animation: fadeInUp 0.8s  ease-out 0.22s both; }
+    .hero-actions  { animation: fadeInUp 0.7s  ease-out 0.45s both; }
+
+    /* Pasta floating */
+    .hero-pasta-1 { animation: floatA 5.5s ease-in-out infinite; }
+    .hero-pasta-2 { animation: floatB 6.8s ease-in-out 1.2s infinite; }
+    .hero-pasta-3 { animation: floatC 7.2s ease-in-out 0.6s infinite; }
+    .hero-pasta-4 { animation: floatD 6.0s ease-in-out 2.0s infinite; }
+
+    /* Scroll reveal base states */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.72s cubic-bezier(.22,1,.36,1), transform 0.72s cubic-bezier(.22,1,.36,1);
+    }
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-44px);
+      transition: opacity 0.85s cubic-bezier(.22,1,.36,1), transform 0.85s cubic-bezier(.22,1,.36,1);
+    }
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(44px);
+      transition: opacity 0.85s cubic-bezier(.22,1,.36,1), transform 0.85s cubic-bezier(.22,1,.36,1);
+    }
+    .reveal.revealed,
+    .reveal-left.revealed,
+    .reveal-right.revealed {
+      opacity: 1;
+      transform: translate(0);
+    }
+
+    /* Menu card image zoom on hover */
+    .menu-card-image img {
+      transition: transform 0.5s cubic-bezier(.22,1,.36,1);
+    }
+    .menu-card:hover .menu-card-image img {
+      transform: scale(1.07) !important;
+    }
+
+    /* Promise card hover lift */
+    .promise-item {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .promise-item:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 48px rgba(0,0,0,0.18);
+    }
+
+    /* Review card hover */
+    .review-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .review-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+    }
+
+    /* Respect prefers-reduced-motion */
+    @media (prefers-reduced-motion: reduce) {
+      .hero-eyebrow, .hero-title, .hero-actions,
+      .hero-pasta-1, .hero-pasta-2, .hero-pasta-3, .hero-pasta-4 { animation: none; }
+      .reveal, .reveal-left, .reveal-right { opacity: 1; transform: none; transition: none; }
     }
 
     @media (max-width: 768px) {
@@ -1873,6 +1963,88 @@
       sidoSel.addEventListener('change', applyFilter);
 
       render();
+    })();
+  </script>
+
+  <script>
+    /* ── SCROLL REVEAL ── */
+    (function () {
+      const groups = [
+        { sel: '.brand-story-image',      cls: 'reveal-left' },
+        { sel: '.brand-story-text',       cls: 'reveal-right' },
+        { sel: '.promise-title',          cls: 'reveal' },
+        { sel: '.promise-item',           cls: 'reveal', stagger: 120 },
+        { sel: '.section-label',          cls: 'reveal' },
+        { sel: '.section-title',          cls: 'reveal' },
+        { sel: '.menu-card',              cls: 'reveal', stagger: 80 },
+        { sel: '.stat-item',              cls: 'reveal', stagger: 100 },
+        { sel: '.review-card',            cls: 'reveal', stagger: 100 },
+        { sel: '.franchise-stat-item',    cls: 'reveal', stagger: 80 },
+        { sel: '.franchise-title',        cls: 'reveal' },
+        { sel: '.franchise-desc',         cls: 'reveal' },
+        { sel: '.franchise-benefits li',  cls: 'reveal', stagger: 60 },
+        { sel: '.franchise-step',         cls: 'reveal', stagger: 90 },
+        { sel: '.franchise-quote-inner',  cls: 'reveal' },
+        { sel: '.store-heading',          cls: 'reveal' },
+      ];
+
+      groups.forEach(({ sel, cls, stagger }) => {
+        document.querySelectorAll(sel).forEach((el, i) => {
+          el.classList.add(cls);
+          if (stagger) el.style.transitionDelay = (i * stagger) + 'ms';
+        });
+      });
+
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('revealed');
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => io.observe(el));
+    })();
+
+    /* ── STATS COUNTER ── */
+    (function () {
+      const statsEl = document.querySelector('.stats');
+      if (!statsEl) return;
+
+      const data = [
+        { val: 87,   suffix: '개',   decimals: 0 },
+        { val: 230,  suffix: '만+',  decimals: 0 },
+        { val: 4.8,  suffix: '점',   decimals: 1 },
+        { val: 2016, suffix: '년',   decimals: 0 },
+      ];
+
+      function animateCount(el, { val, suffix, decimals }, duration) {
+        const unit = el.querySelector('.stat-unit');
+        const unitHtml = unit ? unit.outerHTML : '';
+        const textNode = el.childNodes[0];
+        let start = null;
+        function step(ts) {
+          if (!start) start = ts;
+          const progress = Math.min((ts - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+          const cur = eased * val;
+          if (textNode) textNode.textContent = decimals ? cur.toFixed(decimals) : Math.round(cur);
+          if (progress < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }
+
+      let fired = false;
+      const io = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting && !fired) {
+          fired = true;
+          document.querySelectorAll('.stat-number').forEach((el, i) => {
+            setTimeout(() => animateCount(el, data[i], 1400), i * 100);
+          });
+        }
+      }, { threshold: 0.5 });
+      io.observe(statsEl);
     })();
   </script>
 
