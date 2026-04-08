@@ -905,21 +905,17 @@
 
     /* ── FRANCHISE ── */
     .franchise {
-      background-color: #f2f5ff;
+      background-color: #f8f9fb;
       padding: 100px 0;
     }
 
     .franchise-inner {
-      max-width: 1100px;
+      max-width: 960px;
       margin: 0 auto;
       padding: 0 48px;
-      display: flex;
-      align-items: center;
-      gap: 80px;
     }
 
     .franchise-text {
-      flex: 1;
       display: flex;
       flex-direction: column;
       gap: 20px;
@@ -949,22 +945,34 @@
 
     .franchise-benefits {
       list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .franchise-benefits li:last-child:nth-child(odd) {
+      grid-column: 1 / -1;
     }
 
     .franchise-benefits li {
+      background: #fff;
+      border: 1px solid #e4e8f0;
+      border-radius: 4px;
+      padding: 20px 20px;
       font-size: 14px;
       color: #333;
       display: flex;
-      align-items: center;
-      gap: 10px;
+      align-items: flex-start;
+      gap: 12px;
+      line-height: 1.6;
     }
 
     .benefit-icon {
-      color: #3971b8;
-      font-weight: 900;
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      margin-top: 1px;
     }
 
     .btn-franchise {
@@ -972,11 +980,11 @@
       background: #3971b8;
       color: #fff;
       border-radius: 4px;
-      padding: 14px 36px;
+      padding: 14px 40px;
       font-size: 15px;
       font-weight: 700;
       text-decoration: none;
-      width: fit-content;
+      letter-spacing: 0.02em;
       transition: background 0.2s;
     }
 
@@ -984,65 +992,28 @@
       background: #2d5fa0;
     }
 
-    .franchise-visual {
-      flex: 0 0 360px;
-    }
-
-    .franchise-card {
-      background: #f4f6ff;
-      border-radius: 16px;
-      padding: 40px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    .franchise-card-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .fc-label {
-      font-size: 14px;
-      color: #666;
-    }
-
-    .fc-value {
-      font-size: 18px;
-      font-weight: 800;
-      color: #111;
-    }
-
-    .franchise-card-divider {
-      height: 1px;
-      background: #dde2f5;
-    }
-
-    .fc-note {
-      font-size: 12px;
-      color: #999;
-    }
-
     .franchise-stats {
-      max-width: 1300px;
+      max-width: 960px;
       margin: 0 auto 64px;
       padding: 0 48px;
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 24px;
     }
 
     .franchise-stat-item {
-      background: #fff;
-      border-radius: 4px;
       padding: 28px 24px;
       text-align: center;
+      border-right: 1px solid #e4e8f0;
+    }
+
+    .franchise-stat-item:first-child {
+      border-left: 1px solid #e4e8f0;
     }
 
     .franchise-stat-number {
       font-family: '가평한석봉 큰붓', sans-serif;
-      font-size: clamp(28px, 3vw, 40px);
+      font-size: clamp(22px, 2.4vw, 34px);
+      white-space: nowrap;
       font-weight: 900;
       color: #3971b8;
       line-height: 1.1;
@@ -1051,7 +1022,7 @@
 
     .franchise-stat-label {
       font-size: 13px;
-      color: #666;
+      color: #888;
       line-height: 1.5;
     }
 
@@ -1093,13 +1064,15 @@
     }
 
     .franchise-process-title {
-      font-size: 13px;
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 12px;
       font-weight: 700;
-      letter-spacing: 0.1em;
-      color: #3971b8;
-      margin-bottom: 24px;
+      letter-spacing: 3px;
+      color: #aaa;
       text-transform: uppercase;
     }
+
 
     .franchise-process-steps {
       display: grid;
@@ -1327,14 +1300,15 @@
       }
 
       .franchise-inner {
-        flex-direction: column;
-        gap: 48px;
         padding: 0 24px;
       }
 
-      .franchise-visual {
-        flex: none;
-        width: 100%;
+      .franchise-benefits {
+        grid-template-columns: 1fr;
+      }
+
+      .franchise-benefits li:last-child:nth-child(odd) {
+        grid-column: 1;
       }
 
       .footer-inner {
@@ -1370,7 +1344,7 @@
         파스타
       </h1>
       <div class="hero-actions">
-        <a href="#" class="hero-cta">예약하기</a>
+        <a href="javascript:void(0)" class="hero-cta">예약하기</a>
         <a href="#menu" class="hero-cta-link">메뉴 보기</a>
       </div>
     </div>
@@ -1530,7 +1504,6 @@
       </div>
 
       <div class="menu-cta">
-        <a href="#" class="btn-menu-more">전체 메뉴 보기</a>
       </div>
     </div>
   </section>
@@ -1682,35 +1655,31 @@
     <div class="franchise-inner">
       <div class="franchise-text">
         <ul class="franchise-benefits">
-          <li><span class="benefit-icon">✓</span> 초기 투자비용 최소화 — 15평 소형 매장부터 운영 가능</li>
-          <li><span class="benefit-icon">✓</span> 본사 소스 직공급으로 누구나 동일한 맛 구현</li>
-          <li><span class="benefit-icon">✓</span> 오픈 전 2주 집중 교육 + 오픈 후 3개월 전담 슈퍼바이저</li>
-          <li><span class="benefit-icon">✓</span> 월 정액 로열티 20만원 — 매출이 오를수록 수익 극대화</li>
-          <li><span class="benefit-icon">✓</span> 전국 공동 마케팅 · SNS 콘텐츠 본사 제작 지원</li>
+          <li>
+            <svg class="benefit-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="9" stroke="#3971b8" stroke-width="1.5"/><path d="M6 10.5l2.5 2.5 5.5-5.5" stroke="#3971b8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            초기 투자비용 최소화 — 15평 소형 매장부터 운영 가능
+          </li>
+          <li>
+            <svg class="benefit-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="9" stroke="#3971b8" stroke-width="1.5"/><path d="M6 10.5l2.5 2.5 5.5-5.5" stroke="#3971b8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            본사 소스 직공급으로 누구나 동일한 맛 구현
+          </li>
+          <li>
+            <svg class="benefit-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="9" stroke="#3971b8" stroke-width="1.5"/><path d="M6 10.5l2.5 2.5 5.5-5.5" stroke="#3971b8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            오픈 전 2주 집중 교육 + 오픈 후 3개월 전담 슈퍼바이저
+          </li>
+          <li>
+            <svg class="benefit-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="9" stroke="#3971b8" stroke-width="1.5"/><path d="M6 10.5l2.5 2.5 5.5-5.5" stroke="#3971b8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            월 정액 로열티 20만원 — 매출이 오를수록 수익 극대화
+          </li>
+          <li>
+            <svg class="benefit-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="9" stroke="#3971b8" stroke-width="1.5"/><path d="M6 10.5l2.5 2.5 5.5-5.5" stroke="#3971b8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            전국 공동 마케팅 · SNS 콘텐츠 본사 제작 지원
+          </li>
+          <li>
+            <svg class="benefit-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="9" stroke="#3971b8" stroke-width="1.5"/><path d="M6 10.5l2.5 2.5 5.5-5.5" stroke="#3971b8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            인테리어 설계 · 시공 본사 지원 — 매장 오픈까지 원스톱
+          </li>
         </ul>
-        <a href="#" class="btn-franchise">가맹 문의하기</a>
-      </div>
-      <div class="franchise-visual">
-        <div class="franchise-card">
-          <div class="franchise-card-row">
-            <span class="fc-label">창업 비용</span>
-            <span class="fc-value">3,500만원~</span>
-          </div>
-          <div class="franchise-card-row">
-            <span class="fc-label">권장 면적</span>
-            <span class="fc-value">15평~</span>
-          </div>
-          <div class="franchise-card-row">
-            <span class="fc-label">평균 월매출</span>
-            <span class="fc-value">2,200만원</span>
-          </div>
-          <div class="franchise-card-row">
-            <span class="fc-label">로열티</span>
-            <span class="fc-value">월 20만원 정액</span>
-          </div>
-          <div class="franchise-card-divider"></div>
-          <p class="fc-note">* 입지 및 매장 규모에 따라 상이할 수 있습니다.</p>
-        </div>
       </div>
     </div>
 
@@ -1738,6 +1707,10 @@
           <div class="franchise-step-desc">그랜드 오픈 지원<br />3개월 슈퍼바이저</div>
         </div>
       </div>
+    </div>
+
+    <div style="text-align:center; margin-top:48px;">
+      <a href="javascript:void(0)" class="btn-franchise">가맹 문의하기</a>
     </div>
 
   </section>
