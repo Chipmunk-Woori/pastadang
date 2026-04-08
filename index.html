@@ -1286,6 +1286,15 @@
     .hero-pasta-3 { animation: floatC 7.2s ease-in-out 0.6s infinite; }
     .hero-pasta-4 { animation: floatD 6.0s ease-in-out 2.0s infinite; }
 
+    /* 이미지 로드 전 숨김 — 버퍼링 현상 방지 */
+    .hero:not(.pasta-ready) .hero-pasta-wrap {
+      opacity: 0;
+      transition: none;
+    }
+    .hero.pasta-ready .hero-pasta-wrap {
+      transition: opacity 0.7s ease-out;
+    }
+
     /* Scroll reveal base states */
     .reveal {
       opacity: 0;
@@ -1967,6 +1976,21 @@
   </script>
 
   <script>
+    /* ── PASTA 버퍼링 방지 ── */
+    (function () {
+      const hero = document.querySelector('.hero');
+      const imgs = hero.querySelectorAll('.hero-pasta-wrap img');
+      let loaded = 0;
+      function check() {
+        loaded++;
+        if (loaded >= imgs.length) hero.classList.add('pasta-ready');
+      }
+      imgs.forEach(img => {
+        if (img.complete) check();
+        else { img.addEventListener('load', check); img.addEventListener('error', check); }
+      });
+    })();
+
     /* ── SCROLL REVEAL ── */
     (function () {
       const groups = [
