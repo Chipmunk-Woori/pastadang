@@ -27,9 +27,13 @@
       padding: 0;
     }
 
+    html {
+      background-color: #111111;
+    }
+
     body {
       font-family: 'Noto Sans KR', sans-serif;
-      background-color: #3971b8;
+      background-color: #111111;
       overflow-x: hidden;
     }
 
@@ -1684,7 +1688,7 @@
           <li><span class="benefit-icon">✓</span> 월 정액 로열티 20만원 — 매출이 오를수록 수익 극대화</li>
           <li><span class="benefit-icon">✓</span> 전국 공동 마케팅 · SNS 콘텐츠 본사 제작 지원</li>
         </ul>
-        <a href="#" class="btn-franchise">무료 가맹 문의하기</a>
+        <a href="#" class="btn-franchise">가맹 문의하기</a>
       </div>
       <div class="franchise-visual">
         <div class="franchise-card">
@@ -1900,8 +1904,21 @@
   </script>
 
   <script>
+    const htmlEl = document.documentElement;
+    function updateOverscrollColor() {
+      const scrolled = window.scrollY;
+      const maxScroll = document.body.scrollHeight - window.innerHeight;
+      if (scrolled < maxScroll / 2) {
+        htmlEl.style.backgroundColor = '#3971b8';
+      } else {
+        htmlEl.style.backgroundColor = '#111111';
+      }
+    }
+    updateOverscrollColor();
+
     const header = document.querySelector('header');
     window.addEventListener('scroll', () => {
+      updateOverscrollColor();
       if (window.scrollY > 20) {
         header.style.backgroundColor = 'rgba(255, 255, 255, 0.6)';
         header.style.backdropFilter = 'blur(12px)';
